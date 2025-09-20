@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Agendamento - Professores</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState } = React;
+
+        function TeacherSchedulingSystem() {
+          const subjects = {
+            "Língua Portuguesa e Redação": {
+              icon: "📚",
+              color: "blue",
+              teachers: [
+                { id: 1, name: "Prof. Ana Silva", specialties: ["Literatura", "Gramática", "Redação"] },
+                { id: 2, name: "Prof. Carlos Santos", specialties: ["Redação", "Interpretação"] },
+                { id: 3, name: "Prof. Maria Oliveira", specialties: ["Literatura Clássica", "Produção Textual"] }
+              ]
+            },
+            "Matemática": {
+              icon: "🧮",
+              color: "green",
+              teachers: [
+                { id: 4, name: "Prof. João Pereira", specialties: ["Álgebra", "Geometria"] },
+                { id: 5, name: "Prof. Fernanda Lima", specialties: ["Cálculo", "Estatística"] },
+                { id: 6, name: "Prof. Roberto Costa", specialties: ["Trigonometria", "Funções"] }
+              ]
+            },
+            "Ciências": {
+              icon: "🔬",
+              color: "purple",
+              teachers: [
+                { id: 7, name: "Prof. Luciana Moraes", specialties: ["Biologia", "Química"] },
+                { id: 8, name: "Prof. Pedro Alves", specialties: ["Física", "Química"] },
+                { id: 9, name: "Prof. Camila Rocha", specialties: ["Biologia", "Meio Ambiente"] }
+              ]
+            },
+            "Espanhol": {
+              icon: "🇪🇸",
+              color: "red",
+              teachers: [
+                { id: 10, name: "Prof. Elena Rodriguez", specialties: ["Conversação", "Gramática"] },
+                { id: 11, name: "Prof. Miguel Santos", specialties: ["Literatura Hispânica", "Cultura"] }
+              ]
+            },
+            "Inglês": {
+              icon: "🇺🇸",
+              color: "indigo",
+              teachers: [
+                { id: 12, name: "Prof. Sarah Johnson", specialties: ["Conversação", "Grammar"] },
+                { id: 13, name: "Prof. Robert Brown", specialties: ["Literature", "Writing"] },
+                { id: 14, name: "Prof. Amanda Wilson", specialties: ["Business English", "TOEFL"] }
+              ]
+            },
+            "História/Filosofia/Sociologia": {
+              icon: "🏛️",
+              color: "yellow",
+              teachers: [
+                { id: 15, name: "Prof. José História", specialties: ["História Geral", "História do Brasil"] },
+                { id: 16, name: "Prof. Marcos Filosofia", specialties: ["Filosofia Antiga", "Ética"] },
+                { id: 17, name: "Prof. Laura Sociologia", specialties: ["Sociologia Contemporânea", "Antropologia"] }
+              ]
+            },
+            "Geografia": {
+              icon: "🌍",
+              color: "teal",
+              teachers: [
+                { id: 18, name: "Prof. Ricardo Geo", specialties: ["Geografia Física", "Cartografia"] },
+                { id: 19, name: "Prof. Marina Terra", specialties: ["Geografia Humana", "Geopolítica"] }
+              ]
+            },
+            "Educação Física": {
+              icon: "⚽",
+              color: "orange",
+              teachers: [
+                { id: 20, name: "Prof. Diego Esporte", specialties: ["Futebol", "Basquete", "Atletismo"] },
+                { id: 21, name: "Prof. Carla Fitness", specialties: ["Ginástica", "Dança", "Yoga"] }
+              ]
+            },
+            "Artes": {
+              icon: "🎨",
+              color: "pink",
+              teachers: [
+                { id: 22, name: "Prof. Helena Arte", specialties: ["Pintura", "Desenho"] },
+                { id: 23, name: "Prof. Bruno Música", specialties: ["Música", "Teatro"] }
+              ]
+            },
+            "Educação Tecnológica": {
+              icon: "💻",
+              color: "gray",
+              teachers: [
+                { id: 24, name: "Prof. Tech Silva", specialties: ["Programação", "Robótica"] },
+                { id: 25, name: "Prof. Digital Costa", specialties: ["Design", "Informática"] }
+              ]
+            },
+            "Biologia": {
+              icon: "🧬",
+              color: "green",
+              teachers: [
+                { id: 26, name: "Prof. Bio Santos", specialties: ["Genética", "Ecologia"] },
+                { id: 27, name: "Prof. Vida Lima", specialties: ["Anatomia", "Botânica"] }
+              ]
+            },
+            "Literatura": {
+              icon: "📖",
+              color: "purple",
+              teachers: [
+                { id: 28, name: "Prof. Letras Souza", specialties: ["Literatura Brasileira", "Poesia"] },
+                { id: 29, name: "Prof. Verso Alves", specialties: ["Literatura Mundial", "Drama"] }
+              ]
+            },
+            "Física": {
+              icon: "⚛️",
+              color: "blue",
+              teachers: [
+                { id: 30, name: "Prof. Newton Physics", specialties: ["Mecânica", "Eletromagnetismo"] },
+                { id: 31, name: "Prof. Einstein Teoria", specialties: ["Física Moderna", "Termodinâmica"] }
+              ]
+            }
+          };
+
+          const generateTimeSlots = () => {
+            const slots = [];
+            let startTime = new Date();
+            startTime.setHours(18, 30, 0, 0);
+            
+            const endTime = new Date();
+            endTime.setHours(19, 50, 0, 0);
+            
+            while (startTime <= endTime) {
+              const timeString = startTime.toLocaleTimeString('pt-BR', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: false 
+              });
+              slots.push(timeString);
+              startTime.setMinutes(startTime.getMinutes() + 10);
+            }
+            
+            return slots;
+          };
+
+          const timeSlots = generateTimeSlots();
+
+          const [currentScreen, setCurrentScreen] = useState("home");
+          const [selectedSubject, setSelectedSubject] = useState("");
+          const [selectedTeacher, setSelectedTeacher] = useState(null);
+          const [teacherBookings, setTeacherBookings] = useState(new Map());
+          const [message, setMessage] = useState("");
+          const [messageType, setMessageType] = useState("");
+          const [isAdminMode, setIsAdminMode] = useState(false);
+          const [adminPassword, setAdminPassword] = useState("");
+
+          const [parentName, setParentName] = useState("");
+          const [studentName, setStudentName] = useState("");
+          const [email, setEmail] = useState("");
+          const [selectedSlot, setSelectedSlot] = useState("");
+
+          const showMessage = (text, type) => {
+            setMessage(text);
+            setMessageType(type);
+            setTimeout(() => {
+              setMessage("");
+              setMessageType("");
+            }, 4000);
+          };
+
+          const getTeacherBookings = (teacherId) => {
+            return teacherBookings.get(teacherId) || new Map();
+          };
+
+          const getBookedSlots = (teacherId) => {
+            const bookings = getTeacherBookings(teacherId);
+            return new Set(Array.from(bookings.keys()));
+          };
+
+          const isSlotAvailable = (slot, teacherId) => {
+            const bookedSlots = getBookedSlots(teacherId);
+            return !bookedSlots.has(slot);
+          };
+
+          const goToAdmin = () => setCurrentScreen("admin");
+          const goToSubjects = () => setCurrentScreen("subjects");
+          
+          const goToTeachers = (subject) => {
+            setSelectedSubject(subject);
+            setCurrentScreen("teachers");
+          };
+
+          const goToBooking = (teacher) => {
+            setSelectedTeacher(teacher);
+            setCurrentScreen("booking");
+            setParentName("");
+            setStudentName("");
+            setEmail("");
+            setSelectedSlot("");
+            setMessage("");
+            setMessageType("");
+          };
+
+          const goBack = () => {
+            if (currentScreen === "booking") {
+              setCurrentScreen("teachers");
+            } else if (currentScreen === "teachers") {
+              setCurrentScreen("subjects");
+            } else if (currentScreen === "subjects") {
+              setCurrentScreen("home");
+            }
+          };
+
+          const handleAdminLogin = () => {
+            if (adminPassword === "admin123") {
+              setIsAdminMode(true);
+              setCurrentScreen("adminPanel");
+              setAdminPassword("");
+              showMessage("Acesso administrativo concedido!", "success");
+            } else {
+              showMessage("Senha incorreta. Acesso negado.", "error");
+              setAdminPassword("");
+            }
+          };
+
+          const handleBooking = () => {
+            const teacherId = selectedTeacher?.id;
+            
+            if (!teacherId) return;
+            
+            if (!parentName.trim()) {
+              showMessage("Por favor, insira o nome do responsável.", "error");
+              return;
+            }
+
+            if (!studentName.trim()) {
+              showMessage("Por favor, insira o nome do estudante.", "error");
+              return;
+            }
+
+            if (!email.trim()) {
+              showMessage("Por favor, insira o email para contato.", "error");
+              return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+              showMessage("Por favor, insira um email válido.", "error");
+              return;
+            }
+
+            if (!selectedSlot) {
+              showMessage("Por favor, selecione um horário.", "error");
+              return;
+            }
+
+            const currentBookings = getTeacherBookings(teacherId);
+            const existingBooking = Array.from(currentBookings.values()).find(booking => 
+              booking.email.toLowerCase() === email.toLowerCase()
+            );
+            
+            if (existingBooking) {
+              showMessage(`Este email já tem um agendamento às ${existingBooking.time} para o estudante ${existingBooking.studentName} com ${selectedTeacher.name}.`, "error");
+              return;
+            }
+
+            if (!isSlotAvailable(selectedSlot, teacherId)) {
+              showMessage("Este horário não está mais disponível. Selecione outro.", "error");
+              return;
+            }
+
+            const bookingData = {
+              parentName: parentName.trim(),
+              studentName: studentName.trim(),
+              email: email.trim().toLowerCase(),
+              time: selectedSlot,
+              bookingDate: new Date().toLocaleDateString('pt-BR'),
+              teacher: selectedTeacher.name,
+              subject: selectedSubject
+            };
+
+            const updatedBookings = new Map([...currentBookings, [selectedSlot, bookingData]]);
+            setTeacherBookings(prev => new Map([...prev, [teacherId, updatedBookings]]));
+            
+            showMessage(`Agendamento confirmado! ${parentName} agendou às ${selectedSlot} para o estudante ${studentName} com ${selectedTeacher.name}.`, "success");
+            
+            setParentName("");
+            setStudentName("");
+            setEmail("");
+            setSelectedSlot("");
+          };
+
+          const exportAllBookings = () => {
+            const worksheetData = [
+              ['Professor', 'Disciplina', 'Nome do Responsável', 'Nome do Estudante', 'Email', 'Horário', 'Data de Agendamento']
+            ];
+            
+            Array.from(teacherBookings.entries()).forEach(([teacherId, bookings]) => {
+              Array.from(bookings.values()).forEach((booking) => {
+                worksheetData.push([
+                  booking.teacher,
+                  booking.subject,
+                  booking.parentName,
+                  booking.studentName,
+                  booking.email,
+                  booking.time,
+                  booking.bookingDate
+                ]);
+              });
+            });
+
+            const csvContent = worksheetData.map(row => 
+              row.map(cell => `"${cell}"`).join(',')
+            ).join('\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', `todos_agendamentos_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showMessage('Relatório completo exportado com sucesso!', 'success');
+          };
+
+          if (currentScreen === "home") {
+            return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 p-6" },
+              React.createElement('div', { className: "max-w-6xl mx-auto" },
+                React.createElement('div', { className: "bg-white rounded-2xl shadow-xl p-8 text-center" },
+                  React.createElement('div', { className: "mb-8" },
+                    React.createElement('div', { className: "text-6xl mb-4" }, "🎓"),
+                    React.createElement('h1', { className: "text-4xl font-bold text-gray-800 mb-4" }, "Sistema de Agendamento"),
+                    React.createElement('p', { className: "text-xl text-gray-600 mb-2" }, "Reuniões Pedagógicas com Professores"),
+                    React.createElement('p', { className: "text-gray-500" }, "Horários disponíveis: 18:30 às 19:50 (intervalos de 10 minutos)")
+                  ),
+                  React.createElement('div', { className: "flex gap-4 justify-center mb-8" },
+                    React.createElement('button', {
+                      onClick: goToSubjects,
+                      className: "px-8 py-4 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-lg font-medium"
+                    }, "Começar Agendamento"),
+                    React.createElement('button', {
+                      onClick: goToAdmin,
+                      className: "px-6 py-4 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-lg font-medium"
+                    }, "⚙️ Área Administrativa")
+                  ),
+                  React.createElement('div', { className: "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" },
+                    Object.entries(subjects).map(([subject, data]) => 
+                      React.createElement('div', { 
+                        key: subject, 
+                        className: "bg-gray-50 rounded-lg p-4" 
+                      },
+                        React.createElement('div', { className: "text-2xl mb-2 text-center" }, data.icon),
+                        React.createElement('h3', { className: "text-sm font-semibold text-gray-800 mb-1 text-center" }, subject),
+                        React.createElement('p', { className: "text-gray-600 text-xs text-center" }, `${data.teachers.length} prof(s)`)
+                      )
+                    )
+                  )
+                )
+              )
+            );
+          }
+
+          if (currentScreen === "subjects") {
+            return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 p-6" },
+              React.createElement('div', { className: "max-w-6xl mx-auto" },
+                React.createElement('div', { className: "bg-white rounded-2xl shadow-xl p-8" },
+                  React.createElement('div', { className: "flex items-center mb-8" },
+                    React.createElement('button', {
+                      onClick: goBack,
+                      className: "mr-4 p-2 text-gray-600 hover:text-gray-800 transition-colors"
+                    }, "← Voltar"),
+                    React.createElement('h1', { className: "text-3xl font-bold text-gray-800" }, "Selecione a Disciplina")
+                  ),
+                  React.createElement('div', { className: "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" },
+                    Object.entries(subjects).map(([subject, data]) =>
+                      React.createElement('button', {
+                        key: subject,
+                        onClick: () => goToTeachers(subject),
+                        className: "bg-blue-50 border-2 border-blue-200 rounded-xl p-4 hover:bg-blue-100 transition-colors text-left"
+                      },
+                        React.createElement('div', { className: "text-3xl mb-2" }, data.icon),
+                        React.createElement('h2', { className: "text-lg font-bold text-gray-800 mb-1" }, subject),
+                        React.createElement('p', { className: "text-gray-600 text-sm" }, `${data.teachers.length} professores`)
+                      )
+                    )
+                  )
+                )
+              )
+            );
+          }
+
+          if (currentScreen === "admin") {
+            return React.createElement('div', { className: "min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6" },
+              React.createElement('div', { className: "max-w-md mx-auto" },
+                React.createElement('div', { className: "bg-white rounded-2xl shadow-xl p-8" },
+                  React.createElement('div', { className: "flex items-center mb-8" },
+                    React.createElement('button', {
+                      onClick: () => setCurrentScreen("home"),
+                      className: "mr-4 p-2 text-gray-600 hover:text-gray-800 transition-colors"
+                    }, "← Voltar"),
+                    React.createElement('div', { className: "flex-1 text-center" },
+                      React.createElement('div', { className: "text-4xl mb-3" }, "🛡️"),
+                      React.createElement('h1', { className: "text-2xl font-bold text-gray-800" }, "Área Administrativa")
+                    )
+                  ),
+                  React.createElement('div', { className: "mb-6" },
+                    React.createElement('label', { className: "block text-sm font-medium text-gray-700 mb-2" }, "Senha de Acesso"),
+                    React.createElement('input', {
+                      type: "password",
+                      value: adminPassword,
+                      onChange: (e) => setAdminPassword(e.target.value),
+                      onKeyPress: (e) => e.key === 'Enter' && handleAdminLogin(),
+                      placeholder: "Digite a senha administrativa",
+                      className: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    })
+                  ),
+                  React.createElement('button', {
+                    onClick: handleAdminLogin,
+                    className: "w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  }, "Acessar Painel Administrativo"),
+                  message && React.createElement('div', {
+                    className: `mt-4 p-3 rounded-lg flex items-center text-sm ${
+                      messageType === 'success' 
+                        ? 'bg-green-50 text-green-800 border border-green-200' 
+                        : 'bg-red-50 text-red-800 border border-red-200'
+                    }`
+                  }, message)
+                )
+              )
+            );
+          }
+
+          // Adicione as outras telas aqui seguindo o mesmo padrão...
+          return React.createElement('div', {}, "Tela em desenvolvimento");
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(TeacherSchedulingSystem));
+    </script>
+</body>
+</html>
