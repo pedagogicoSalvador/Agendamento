@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Agendamento - Professores</title>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></selectedteacherscript>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -23,7 +23,7 @@
                 { id: 1, name: "Profª. Juliana Tricot", turmas: ["Língua Portuguesa: 8º e 9º anos", "Redação: 9º anos"] },
                 { id: 2, name: "Profª. Juliana Velho", turmas: ["Língua Portuguesa e Redação: Ensino Médio"] },
                 { id: 3, name: "Profª. Daniella", turmas: ["Língua Portuguesa: 6º e 7º anos"] },
-                { id: 4, name: "Profª. Márcia", turmas: ["Língua Portuguesa: 5ºanos", "Inglês: 5º anos a 8º anos - Manhã"] }
+                { id: 4, name: "Profª. Márcia", turmas: ["Língua Portuguesa: 5º anos", "Inglês: 5º anos a 8º anos - Manhã"] }
               ]
             },
             "Matemática": {
@@ -73,7 +73,7 @@
               teachers: [
                 { id: 22, name: "Prof. Cristiane", turmas: ["História e Geografia: 5º anos", "História: 6º - Manhã", "Ensino Religiosos"] },
                 { id: 23, name: "Prof. Bruno Segatto", turmas: ["História - EM", "Filosofia - EM", "Sociologia - EM"] },
-                { id: 24, name: "Prof. Guilherme", turmas: ["História: 6º, 7º e 8º - Tarde", "Filosofia: 8º - Tarde]"] },
+                { id: 24, name: "Prof. Guilherme", turmas: ["História: 6º, 7º e 8º - Tarde", "Filosofia: 8º - Tarde"] },
                 { id: 25, name: "Profª. Isadora", turmas: ["História - 7º, 8º - Manhã, 9º anos", "Filosofia: 8º - Manhã e 9º"] }
               ]
             },
@@ -96,40 +96,37 @@
               icon: "🎨",
               color: "pink",
               teachers: [
-                { id: 22, name: "Prof. Helena Arte", turmas: ["Pintura", "Desenho"] },
-                { id: 23, name: "Prof. Bruno Música", turmas: ["Música", "Teatro"] }
+                { id: 29, name: "Prof. Helena Arte", turmas: ["Pintura", "Desenho"] },
+                { id: 30, name: "Prof. Bruno Música", turmas: ["Música", "Teatro"] }
               ]
             },
             "Educação Tecnológica": {
               icon: "💻",
               color: "gray",
               teachers: [
-                { id: 24, name: "Prof. Tech Silva", turmas: ["Programação", "Robótica"] },
-                { id: 25, name: "Prof. Digital Costa", turmas: ["Design", "Informática"] }
+                { id: 31, name: "Prof. Alexandre", turmas: ["5º ao 8º anos"] },
               ]
             },
             "Biologia": {
               icon: "🧬",
               color: "green",
               teachers: [
-                { id: 26, name: "Prof. Bio Santos", turmas: ["Genética", "Ecologia"] },
-                { id: 27, name: "Prof. Vida Lima", turmas: ["Anatomia", "Botânica"] }
+                { id: 32, name: "Prof. Adir", turmas: ["EM"] },
               ]
             },
             "Literatura": {
               icon: "📖",
               color: "purple",
               teachers: [
-                { id: 28, name: "Prof. Letras Souza", turmas: ["Literatura Brasileira", "Poesia"] },
-                { id: 29, name: "Prof. Verso Alves", turmas: ["Literatura Mundial", "Drama"] }
+                { id: 33, name: "Profª. Alexandra", turmas: ["EM"] },
               ]
             },
             "Física": {
               icon: "⚛️",
               color: "blue",
               teachers: [
-                { id: 30, name: "Prof. Newton Physics", turmas: ["Mecânica", "Eletromagnetismo"] },
-                { id: 31, name: "Prof. Einstein Teoria", turmas: ["Física Moderna", "Termodinâmica"] }
+                { id: 34, name: "Prof. Daniel", turmas: ["2ª e 3ª séries - EM"] },
+                { id: 35, name: "Profª. Rose", turmas: ["1ª séries - EM"] }
               ]
             }
           };
@@ -702,7 +699,7 @@
                         React.createElement('span', {}, "🕒 18:30 às 19:50 (10min cada)")
                       ),
                       React.createElement('div', { className: "mt-2 flex flex-wrap gap-2" },
-                        selectedteacher.turmas.map((specialty, index) =>
+                        selectedTeacher.turmas.map((specialty, index) =>
                           React.createElement('span', {
                             key: index,
                             className: "px-3 py-1 bg-blue-100 text-blue-700 text-sm rounded-full"
@@ -836,6 +833,7 @@
     </script>
 </body>
 </html>
+
 
 
 
