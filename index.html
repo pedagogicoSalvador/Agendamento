@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Agendamento - Professores</title>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></selectedteacherscript>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -23,73 +23,73 @@
                 { id: 1, name: "Profª. Juliana Tricot", turmas: ["Língua Portuguesa: 8º e 9º anos", "Redação: 9º anos"] },
                 { id: 2, name: "Profª. Juliana Velho", turmas: ["Língua Portuguesa e Redação: Ensino Médio"] },
                 { id: 3, name: "Profª. Daniella", turmas: ["Língua Portuguesa: 6º e 7º anos"] },
-                { id: 4, name: "Profª. Márcia", turmas: ["Língua Portuguesa: 5ºanos", "Inglês: 5º anos a 8º anos - Manhã"] },
+                { id: 4, name: "Profª. Márcia", turmas: ["Língua Portuguesa: 5ºanos", "Inglês: 5º anos a 8º anos - Manhã"] }
               ]
             },
             "Matemática": {
               icon: "🧮",
               color: "green",
               teachers: [
-                { id: 4, name: "Profª. Aline", turmas: ["7º anos"] },
-                { id: 5, name: "Profª Eliana", turmas: ["5º ano - Manhã"] },
-                { id: 6, name: "Profª Kátya", turmas: ["2ª e 3ª séries - EM"] },
-                { id: 7, name: "Prof. Mateus", turmas: ["5º anos - Tarde e 6º anos"] },
-                { id: 8, name: "Profª Michele", turmas: ["8º, 9º e 1ª séries - EM"] }
+                { id: 5, name: "Profª. Aline", turmas: ["7º anos"] },
+                { id: 6, name: "Profª Eliana", turmas: ["5º ano - Manhã"] },
+                { id: 7, name: "Profª Kátya", turmas: ["2ª e 3ª séries - EM"] },
+                { id: 8, name: "Prof. Mateus", turmas: ["5º anos - Tarde e 6º anos"] },
+                { id: 9, name: "Profª Michele", turmas: ["8º, 9º e 1ª séries - EM"] }
               ]
             },
             "Ciências e Química": {
               icon: "🔬",
               color: "purple",
               teachers: [
-                { id: 9, name: "Profª. Karina", turmas: ["Ciências: 6º, Manhã e Tarde, 7º, 8º e 9º - Tarde"] },
-                { id: 10, name: "Profª. Raquel", turmas: ["Química: 2ª e 3ª séries - EM"] },
-                { id: 11, name: "Profª. Roberta", turmas: ["Ciências: 7º, 8º e 9º - Manhã", "Química: 1ª série: EM"] },
-                { id: 12, name: "Profª. Tarine", turmas: ["Ciências: 5º anos"] }
+                { id: 10, name: "Profª. Karina", turmas: ["Ciências: 6º, Manhã e Tarde, 7º, 8º e 9º - Tarde"] },
+                { id: 11, name: "Profª. Raquel", turmas: ["Química: 2ª e 3ª séries - EM"] },
+                { id: 12, name: "Profª. Roberta", turmas: ["Ciências: 7º, 8º e 9º - Manhã", "Química: 1ª série: EM"] },
+                { id: 13, name: "Profª. Tarine", turmas: ["Ciências: 5º anos"] }
               ]
             },
             "Espanhol": {
               icon: "🇪🇸",
               color: "red",
               teachers: [
-                { id: 13, name: "Profª. Michelle", turmas: ["6º ao 9º anos"] },
+                { id: 14, name: "Profª. Michelle", turmas: ["6º ao 9º anos"] },
                ]
             },
             "Inglês": {
-              icon: "Ing",
+              icon: "🔤",              
               color: "indigo",
               teachers: [
-                { id: 14, name: "Profª Bianca", turmas: ["EF2 - Tarde"] },
-                { id: 15, name: "Profª Giane", turmas: ["EM"] },
-                { id: 16, name: "Prof. Leonardo", turmas: ["9º anos", "EM"] },
-                { id: 17, name: "Prof. Everton", turmas: ["EM"] },
-                { id: 18, name: "Prof. Patrick", turmas: ["EM"] },
-                { id: 19, name: "Profª Regina", turmas: ["EM"] },
-                { id: 20, name: "Profª Gisele", turmas: ["EM"] },
+                { id: 15, name: "Profª Bianca", turmas: ["EF2 - Tarde"] },
+                { id: 16, name: "Profª Giane", turmas: ["EM"] },
+                { id: 17, name: "Prof. Leonardo", turmas: ["9º anos", "EM"] },
+                { id: 18, name: "Prof. Everton", turmas: ["EM"] },
+                { id: 19, name: "Prof. Patrick", turmas: ["EM"] },
+                { id: 20, name: "Profª Regina", turmas: ["EM"] },
+                { id: 21, name: "Profª Gisele", turmas: ["EM"] },
               ]
             },
             "História/Filosofia/Sociologia": {
               icon: "🏛️",
               color: "yellow",
               teachers: [
-                { id: 15, name: "Prof. Cristiane", turmas: ["História e Geografia: 5º anos", "História: 6º - Manhã", "Ensino Religiosos"] },
-                { id: 16, name: "Prof. Bruno Segatto", turmas: ["História - EM", "Filosofia - EM", "Sociologia - EM"] },
-                { id: 17, name: "Prof. Guilherme", turmas: ["História: 6º, 7º e 8º - Tarde", "Filosofia: 8º - Tarde] },
-                { id: 18, name: "Profª. Isadora", turmas: ["História - 7º, 8º - Manhã, 9º anos", "Filosofia: 8º - Manhã e 9º"] }
+                { id: 22, name: "Prof. Cristiane", turmas: ["História e Geografia: 5º anos", "História: 6º - Manhã", "Ensino Religiosos"] },
+                { id: 23, name: "Prof. Bruno Segatto", turmas: ["História - EM", "Filosofia - EM", "Sociologia - EM"] },
+                { id: 24, name: "Prof. Guilherme", turmas: ["História: 6º, 7º e 8º - Tarde", "Filosofia: 8º - Tarde]"] },
+                { id: 25, name: "Profª. Isadora", turmas: ["História - 7º, 8º - Manhã, 9º anos", "Filosofia: 8º - Manhã e 9º"] }
               ]
             },
             "Geografia": {
               icon: "🌍",
               color: "teal",
               teachers: [
-                { id: 19, name: "Prof. Dillian", turmas: ["6º ao 9º - EF", "EM"] },
+                { id: 26, name: "Prof. Dillian", turmas: ["6º ao 9º - EF", "EM"] },
               ]
             },
             "Educação Física": {
               icon: "⚽",
               color: "orange",
               teachers: [
-                { id: 20, name: "Prof. Ana Carolina", turmas: ["5º ao 9º anos", "EM"] },
-                { id: 21, name: "Prof. Fabiani", turmas: ["7º ao 9º anos- Manhã"] }
+                { id: 27, name: "Prof. Ana Carolina", turmas: ["5º ao 9º anos", "EM"] },
+                { id: 28, name: "Prof. Fabiani", turmas: ["7º ao 9º anos- Manhã"] }
               ]
             },
             "Artes": {
@@ -836,6 +836,7 @@
     </script>
 </body>
 </html>
+
 
 
 
