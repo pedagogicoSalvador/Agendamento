@@ -12,7 +12,14 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-        const { useState } = React;
+        const { useState, useEffect } = React;
+
+        // CONFIGURAÇÃO - SUBSTITUA PELOS SEUS VALORES
+        const GOOGLE_SHEETS_CONFIG = {
+            apiKey: 'AIzaSyAv9YwX1zbkCZfBNEifBZ8T3tBkUFsh_F4', // Substitua pela chave que você criou
+            spreadsheetId: '1rYNZeln5_eVUEcao25KIWuKfMCYzLg8p1ruM6Ds5VWU', // ID da sua planilha
+            range: 'Sheet1!A:G' // Range dos dados
+        };
 
         function TeacherSchedulingSystem() {
           const subjects = {
@@ -833,6 +840,7 @@
     </script>
 </body>
 </html>
+
 
 
 
