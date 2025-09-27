@@ -3,138 +3,103 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Agendamento de Professores</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-    }
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      margin-top: 20px;
-      background: #28a745;
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #218838;
-    }
-    .message {
-      margin-top: 20px;
-      font-weight: bold;
-      text-align: center;
-    }
-  </style>
+  <title>Sistema de Agendamento</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>Agendamento de Professores</h1>
-  <div class="container">
-    <form id="bookingForm">
-      <label for="teacher">Professor:</label>
-      <select id="teacher" name="teacher" required>
-        <option value="">Selecione</option>
-        <option value="Profª. Juliana Tricot">Profª. Juliana Tricot</option>
-        <option value="Prof. Mateus">Prof. Mateus</option>
-        <option value="Profª. Ana">Profª. Ana</option>
-      </select>
+<body class="bg-gray-100 font-sans min-h-screen flex items-center justify-center">
 
-      <label for="subject">Disciplina:</label>
-      <select id="subject" name="subject" required>
-        <option value="">Selecione</option>
-        <option value="Português">Português</option>
-        <option value="Matemática">Matemática</option>
-        <option value="Ciências">Ciências</option>
-      </select>
+  <div class="bg-white shadow-xl rounded-xl p-8 w-full max-w-lg">
+    <h1 class="text-2xl font-bold text-center mb-6">📅 Agendamento de Professores</h1>
+    
+    <form id="bookingForm" class="space-y-4">
+      <div>
+        <label class="block text-gray-700 mb-1">Professor</label>
+        <select id="teacher" class="w-full border rounded-lg p-2" required>
+          <option value="">Selecione...</option>
+          <option value="Profª. Juliana Tricot">Profª. Juliana Tricot</option>
+          <option value="Prof. Mateus">Prof. Mateus</option>
+          <option value="Profª. Michele">Profª. Michele</option>
+          <option value="Profª. Karina">Profª. Karina</option>
+          <!-- você pode adicionar mais aqui -->
+        </select>
+      </div>
 
-      <label for="parentName">Responsável:</label>
-      <input type="text" id="parentName" name="parentName" required />
+      <div>
+        <label class="block text-gray-700 mb-1">Horário</label>
+        <select id="time" class="w-full border rounded-lg p-2" required>
+          <option value="">Selecione...</option>
+          <option>18:30</option>
+          <option>18:40</option>
+          <option>18:50</option>
+          <option>19:00</option>
+          <option>19:10</option>
+          <option>19:20</option>
+          <option>19:30</option>
+          <option>19:40</option>
+          <option>19:50</option>
+        </select>
+      </div>
 
-      <label for="studentName">Estudante:</label>
-      <input type="text" id="studentName" name="studentName" required />
+      <div>
+        <label class="block text-gray-700 mb-1">Nome do Responsável</label>
+        <input type="text" id="parentName" class="w-full border rounded-lg p-2" required />
+      </div>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required />
+      <div>
+        <label class="block text-gray-700 mb-1">Nome do Estudante</label>
+        <input type="text" id="studentName" class="w-full border rounded-lg p-2" required />
+      </div>
 
-      <label for="time">Horário:</label>
-      <input type="time" id="time" name="time" required />
+      <div>
+        <label class="block text-gray-700 mb-1">Email</label>
+        <input type="email" id="email" class="w-full border rounded-lg p-2" required />
+      </div>
 
-      <label for="bookingDate">Data:</label>
-      <input type="date" id="bookingDate" name="bookingDate" required />
-
-      <button type="submit">Agendar</button>
+      <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg">
+        Confirmar Agendamento
+      </button>
     </form>
-    <div id="message" class="message"></div>
+
+    <p id="message" class="text-center mt-4 font-medium"></p>
   </div>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyV3Ws6i12Zet0OlocMHZiLL1-ogOw-mydrrelE6Z0g4sDtrc2LxuNfJmC6SU5jYYSemg/exec";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyV3Ws6i12Zet0OlocMHZiLL1-ogOw-mydrrelE6Z0g4sDtrc2LxuNfJmC6SU5jYYSemg/exec"; // ⬅️ coloque aqui sua URL
 
     document.getElementById("bookingForm").addEventListener("submit", async (e) => {
       e.preventDefault();
+
       const bookingData = {
         teacher: document.getElementById("teacher").value,
-        subject: document.getElementById("subject").value,
+        subject: "Reunião Pedagógica", // pode ser fixo ou dinâmico
         parentName: document.getElementById("parentName").value,
         studentName: document.getElementById("studentName").value,
         email: document.getElementById("email").value,
         time: document.getElementById("time").value,
-        bookingDate: document.getElementById("bookingDate").value
+        bookingDate: new Date().toLocaleDateString("pt-BR")
       };
 
       try {
-        const response = await fetch(SCRIPT_URL, {
+        const response = await fetch(APPS_SCRIPT_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(bookingData)
         });
+
         const result = await response.json();
         if (result.success) {
-          document.getElementById("message").innerText = "✅ Agendamento realizado com sucesso!";
+          document.getElementById("message").textContent = "✅ Agendamento salvo com sucesso!";
+          document.getElementById("message").className = "text-green-600 text-center mt-4 font-medium";
           document.getElementById("bookingForm").reset();
         } else {
-          document.getElementById("message").innerText = "❌ Erro: " + result.error;
+          throw new Error(result.error || "Erro desconhecido");
         }
       } catch (err) {
-        document.getElementById("message").innerText = "❌ Falha na conexão com o servidor.";
-        console.error(err);
+        console.error("Erro:", err);
+        document.getElementById("message").textContent = "❌ Erro ao salvar. Tente novamente.";
+        document.getElementById("message").className = "text-red-600 text-center mt-4 font-medium";
       }
     });
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
